@@ -35,14 +35,15 @@ echo "Git bare repo created successfully"
 # Add post recieve hook to git repositery
 WORKTREE=`readlink -f ${CURR}/${PROJ_PATH}/${proj}`
 GITDIR=`readlink -f ${CURR}/${REPO_PATH}/${proj}`
-
-
 cd ${CURR}
 cat << EOT >> ${REPO_PATH}/${proj}/hooks/post-receive
 #!/bin/sh
 git --work-tree=${WORKTREE} --git-dir=${GITDIR} checkout -f
 EOT
 echo "post reveive hook has been initiallized"
+
+# Make your hook executable
+chmod +x ${REPO_PATH}/${proj}/hooks/post-receive
 
 # Make project folder
 mkdir ${PROJ_PATH}/${proj}
